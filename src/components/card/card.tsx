@@ -1,19 +1,59 @@
-import { default as StorybookCard, CardProps as SbCardProps } from '@utd-argo/ux-master-library/components/card/Card';
+import { Card as StorybookCard } from '@utd-argo/ux-master-library';
+import { SxProps } from '@mui/system';
 
-export type CardProps = SbCardProps & {
-    title?: string;
-    titleBar?: React.ReactNode;
-    value: string | React.ReactNode;
-    metric: string | React.ReactNode;
+import { Platform, PlatformIcon, Analytic, Metric } from '../../types';
+
+export type CardProps = {
+	id?: number;
+	title?: string;
+	platform?: Platform;
+	type?: Analytic;
+	value?: number;
+	valueType?: 'number' | 'percentage';
+	metric?: Metric;
+	metricChange?: number;
+	metricChangeSign?: 'up' | 'down';
+	style?: SxProps;
 };
 
-const Card = ({ title, titleBar, value, metric, ...props }: CardProps) => {
-    return (
-        <StorybookCard title={title} titleBar={titleBar} {...props}>
-            <h2>{value}</h2>
-            <span>{metric}</span>
-        </StorybookCard>
-    );
+const titleBar = (props: CardProps) => {
+	return (
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'row',
+				alignItems: 'center',
+				gap: 8
+			}}
+		>
+			{props.platform && PlatformIcon[props.platform]}
+			<p style={{ fontSize: 20, fontWeight: 'bold', margin: 0 }}>
+				{props.title}
+			</p>
+		</div>
+	);
+};
+
+const Card = (props: CardProps) => {
+	return (
+		<StorybookCard
+			titleBar={titleBar(props)}
+			style={{
+				width: 400,
+				height: 400,
+				...props.style
+			}}
+			centerContent
+		>
+			<div>
+				<p>{props.value}</p>
+				<p>{props.valueType}</p>
+				<p>{props.metric}</p>
+				<p>{props.metricChangeSign}</p>
+				<p>{props.metricChange}</p>
+			</div>
+		</StorybookCard>
+	);
 };
 
 export default Card;
