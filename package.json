@@ -9,9 +9,11 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@utd-argo/ux-master-library": "^0.3.6",
+		"@mui/icons-material": "^5.11.11",
+		"@utd-argo/ux-master-library": "^0.4.0",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"vite-plugin-svgr": "^2.4.0"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.28",

@@ -1,7 +1,7 @@
 .cardGrid {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 28px;
-  padding: 28px;
+  margin: 28px;
   justify-content: left;
 }
