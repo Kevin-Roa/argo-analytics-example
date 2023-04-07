@@ -6,21 +6,21 @@ import { Platform, Analytic } from '../../types';
 import './CardLayout.css';
 
 export type CardLayoutProps = {
-	platformFilters?: Platform;
+	platformFilter?: Platform;
 	typeFilters?: Analytic[];
 };
 
-const CardLayout = ({ platformFilters, typeFilters }: CardLayoutProps) => {
+const CardLayout = ({ platformFilter, typeFilters }: CardLayoutProps) => {
 	const [filteredCards, setFilteredCards] = useState(initialCards);
 
 	const filterCards = () => {
 		const filteredCards = initialCards.filter((card) => {
 			let ret = true;
-			if (platformFilters && card.platform) {
-				if (platformFilters.includes('all')) {
+			if (platformFilter && card.platform) {
+				if (['all', 'home'].includes(platformFilter)) {
 					ret = ret && true;
 				} else {
-					ret = ret && platformFilters.includes(card.platform);
+					ret = ret && platformFilter.includes(card.platform);
 				}
 			}
 			if (typeFilters && card.type) {
@@ -37,7 +37,7 @@ const CardLayout = ({ platformFilters, typeFilters }: CardLayoutProps) => {
 
 	useEffect(() => {
 		filterCards();
-	}, [platformFilters]);
+	}, [platformFilter, typeFilters]);
 
 	return (
 		<div className="cardGrid">
