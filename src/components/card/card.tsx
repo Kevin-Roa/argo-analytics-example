@@ -1,5 +1,11 @@
 import { Card as StorybookCard } from '@utd-argo/ux-master-library';
 import { SxProps } from '@mui/system';
+import {
+	CircularProgressbarWithChildren,
+	buildStyles
+} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 
 import { Platform, PlatformIcon, Analytic, Metric } from '../../types';
 
@@ -14,6 +20,43 @@ export type CardProps = {
 	metricChange?: number;
 	metricChangeSign?: 'up' | 'down';
 	style?: SxProps;
+};
+
+const Card = (props: CardProps) => {
+	return (
+		<StorybookCard
+			titleBar={titleBar(props)}
+			style={{
+				width: 400,
+				height: 400,
+				...props.style
+			}}
+			centerContent
+		>
+			<CircularProgressbarWithChildren
+				value={props.value!}
+				circleRatio={0.6}
+				strokeWidth={6}
+				styles={buildStyles({
+					rotation: 1 / 2 + 1 / 5,
+					pathTransitionDuration: 0.5,
+					pathColor: `${
+						props.valueType === 'percentage' ? '#1976d2' : 'transparent'
+					}`,
+					trailColor: `${props.valueType === 'percentage' ? '' : 'transparent'}`
+				})}
+			>
+				<div style={{ fontFamily: 'Rubik', marginTop: '-30px' }}>
+					<p style={{ fontSize: '35px', fontWeight: 'bold', margin: 0 }}>
+						{props.value}
+						{props.valueType === 'percentage' && '%'}
+					</p>
+					<p style={{ fontSize: '20px', margin: 10 }}>{props.metric}</p>
+				</div>
+			</CircularProgressbarWithChildren>
+			{changeBar(props)}
+		</StorybookCard>
+	);
 };
 
 const titleBar = (props: CardProps) => {
@@ -34,25 +77,39 @@ const titleBar = (props: CardProps) => {
 	);
 };
 
-const Card = (props: CardProps) => {
+const changeBar = (props: CardProps) => {
 	return (
-		<StorybookCard
-			titleBar={titleBar(props)}
-			style={{
-				width: 400,
-				height: 400,
-				...props.style
-			}}
-			centerContent
-		>
-			<div>
-				<p>{props.value}</p>
-				<p>{props.valueType}</p>
-				<p>{props.metric}</p>
-				<p>{props.metricChangeSign}</p>
-				<p>{props.metricChange}</p>
-			</div>
-		</StorybookCard>
+		<div style={{ marginTop: '-70px' }}>
+			<p
+				style={{
+					fontSize: '18px',
+					display: 'inline-flex',
+					alignItems: 'center',
+					gap: 6
+				}}
+			>
+				<span style={{ display: 'flex', alignItems: 'center' }}>
+					{props.metricChangeSign === 'up' ? (
+						<ArrowUpward color="info" strokeWidth={4} />
+					) : (
+						<ArrowDownward color="error" />
+					)}
+				</span>
+				<span>
+					{props.metricChange}
+					{props.valueType === 'percentage' && '%'}
+				</span>
+				<span>from</span>
+				<span>
+					{props.metricChange &&
+						props.value &&
+						(props.metricChangeSign === 'up'
+							? props.value - props.metricChange
+							: props.value + props.metricChange)}
+					{props.valueType === 'percentage' && '%'}
+				</span>
+			</p>
+		</div>
 	);
 };
 

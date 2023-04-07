@@ -4,18 +4,28 @@ import {
 	LeftNavigation,
 	Tab,
 	FilterChip,
-	Dropdown
+	Dropdown,
+	Button,
+	Menu
 } from '@utd-argo/ux-master-library';
 import CardLayout from '../../components/cardLayout/CardLayout';
 import { navItems } from './data';
-import { Platform } from '../../types';
+import { Platform, Analytic, Analytics, Metrics } from '../../types';
+import { FilterList } from '@mui/icons-material';
 
 const Home = () => {
-	const navOnClick = (label: Platform) => {
-		setPlatformFilters(label);
+	const [platformFilter, setPlatformFilter] = useState<Platform>('all');
+	const [analyticFilter, setAnalyticFilter] = useState<Analytic[]>([]);
+	const [filterToggle, setFilterToggle] = useState(false);
+
+	const navOnClick = (idx: number) => {
+		const label = navItems[idx].label?.toLocaleLowerCase() as Platform;
+		setPlatformFilter(label ? label : 'all');
 	};
 
-	const [platformFilters, setPlatformFilters] = useState<Platform>('all');
+	const filterOnClick = () => {
+		setFilterToggle(!filterToggle);
+	};
 
 	// Need to update tab component to have onClick prop
 	const filterTabs = [
@@ -41,30 +51,32 @@ const Home = () => {
 				}}
 			>
 				<div style={{ backgroundColor: 'white' }}>
-					<LeftNavigation listItems={navItems} />
+					<LeftNavigation listItems={navItems} onChange={navOnClick} />
 				</div>
 				<div style={{ width: '100%' }}>
 					<div
 						style={{
 							width: '100%',
-							backgroundColor: 'white',
+							height: '64px',
+							padding: '0 28px',
+							backgroundColor: 'rgb(167 200 233)',
 							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'space-between'
+							gap: '10px'
 						}}
 					>
-						<Tab labels={filterTabs} />
-						<div style={{ display: 'inline-flex', gap: 20, marginRight: 20 }}>
-							<FilterChip value="Positive" />
-							<FilterChip value="Negative" />
-							<Dropdown
-								label="Filters"
-								items={['Positive', 'Negative']}
-								size="small"
-							/>
-						</div>
+						<Button
+							label="Filters"
+							startIcon={<FilterList />}
+							variant="primary"
+							onClick={filterOnClick}
+						/>
+						{/* <Menu options={[...Analytics]} open={filterToggle} /> */}
+						{Metrics.map((metric) => (
+							<FilterChip value={metric.toUpperCase()} />
+						))}
 					</div>
-					<CardLayout platformFilters={platformFilters} />
+					<CardLayout platformFilter={platformFilter} />
 				</div>
 			</div>
 		</div>
