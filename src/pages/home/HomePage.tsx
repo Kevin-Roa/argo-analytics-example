@@ -53,16 +53,18 @@ const Home = () => {
 				<div style={{ backgroundColor: 'white' }}>
 					<LeftNavigation listItems={navItems} onChange={navOnClick} />
 				</div>
-				<div style={{ width: '100%' }}>
+				<div style={{ width: 'calc(100% - 64px)' }}>
 					<div
 						style={{
-							width: '100%',
-							height: '64px',
+							minHeight: '64px',
 							padding: '0 28px',
 							backgroundColor: 'rgb(167 200 233)',
 							display: 'flex',
 							alignItems: 'center',
-							gap: '10px'
+							gap: '10px',
+							fontFamily: 'Poppins',
+							overflow: 'auto',
+							whiteSpace: 'nowrap'
 						}}
 					>
 						<Button

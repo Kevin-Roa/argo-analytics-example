@@ -1,13 +1,20 @@
 import { Card as StorybookCard } from '@utd-argo/ux-master-library';
 import { SxProps } from '@mui/system';
+import { IconButton } from '@mui/material';
 import {
 	CircularProgressbarWithChildren,
 	buildStyles
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
+import {
+	ArrowDownward,
+	ArrowUpward,
+	Star,
+	StarBorder
+} from '@mui/icons-material';
 
 import { Platform, PlatformIcon, Analytic, Metric } from '../../types';
+import { useState } from 'react';
 
 export type CardProps = {
 	id?: number;
@@ -20,12 +27,20 @@ export type CardProps = {
 	metricChange?: number;
 	metricChangeSign?: 'up' | 'down';
 	style?: SxProps;
+	onStar?: (status: boolean) => void;
 };
 
 const Card = (props: CardProps) => {
+	const [isStarred, setIsStarred] = useState(false);
+
+	const onStar = () => {
+		setIsStarred(!isStarred);
+		props.onStar!(isStarred);
+	};
+
 	return (
 		<StorybookCard
-			titleBar={titleBar(props)}
+			titleBar={titleBar(props, isStarred, onStar)}
 			style={{
 				width: 400,
 				height: 400,
@@ -59,20 +74,33 @@ const Card = (props: CardProps) => {
 	);
 };
 
-const titleBar = (props: CardProps) => {
+const titleBar = (props: CardProps, isStarred: boolean, onStar: any) => {
 	return (
 		<div
 			style={{
 				display: 'flex',
 				flexDirection: 'row',
 				alignItems: 'center',
-				gap: 8
+				justifyContent: 'space-between',
+				width: '100%'
 			}}
 		>
-			{props.platform && PlatformIcon[props.platform]}
-			<p style={{ fontSize: 20, fontWeight: 'bold', margin: 0 }}>
-				{props.title}
-			</p>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					alignItems: 'center',
+					gap: 8
+				}}
+			>
+				{props.platform && PlatformIcon[props.platform]}
+				<p style={{ fontSize: 20, fontWeight: 'bold', margin: 0 }}>
+					{props.title}
+				</p>
+			</div>
+			<IconButton onClick={onStar} sx={{ padding: 0 }}>
+				{isStarred ? <Star /> : <StarBorder />}
+			</IconButton>
 		</div>
 	);
 };
