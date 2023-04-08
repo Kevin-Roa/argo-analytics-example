@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react';
 import Card from '../card/Card';
 import initialCards from './data';
-import { Platform, Analytic } from '../../types';
+import { Platform, Metric } from '../../types';
 import './CardLayout.css';
 
 export type CardLayoutProps = {
 	platformFilter?: Platform;
-	typeFilters?: Analytic[];
+	typeFilters?: Metric[];
 };
 
 const CardLayout = ({ platformFilter, typeFilters }: CardLayoutProps) => {
@@ -24,10 +24,10 @@ const CardLayout = ({ platformFilter, typeFilters }: CardLayoutProps) => {
 				}
 			}
 			if (typeFilters && card.type) {
-				if (typeFilters.includes('all')) {
+				if (typeFilters.length === 0) {
 					ret = ret && true;
 				} else {
-					ret = ret && typeFilters.includes(card.type);
+					ret = ret && typeFilters.includes(card.metric!);
 				}
 			}
 			return ret;
