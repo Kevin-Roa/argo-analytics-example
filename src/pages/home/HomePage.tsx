@@ -10,12 +10,12 @@ import {
 } from '@utd-argo/ux-master-library';
 import CardLayout from '../../components/cardLayout/CardLayout';
 import { navItems } from './data';
-import { Platform, Metrics, Metric } from '../../types';
+import { Platform, Analytics, Analytic } from '../../types';
 import { FilterList } from '@mui/icons-material';
 
 const Home = () => {
 	const [platformFilter, setPlatformFilter] = useState<Platform>('all');
-	const [metricFilter, setMetricFilter] = useState<Metric[]>([]);
+	const [analyticFilter, setAnalyticFilter] = useState<Analytic[]>([]);
 	const [filterToggle, setFilterToggle] = useState(false);
 
 	const navOnClick = (idx: number) => {
@@ -27,12 +27,12 @@ const Home = () => {
 		setFilterToggle(!filterToggle);
 	};
 
-	const metricOnClick = (metric: Metric) => {
-		if (metricFilter.includes(metric)) {
-			const newMetricFilter = metricFilter.filter((m) => m !== metric);
-			setMetricFilter(newMetricFilter);
+	const analyticOnClick = (analytic: Analytic) => {
+		if (analyticFilter.includes(analytic)) {
+			const newAnalyticFilter = analyticFilter.filter((m) => m !== analytic);
+			setAnalyticFilter(newAnalyticFilter);
 		} else {
-			setMetricFilter([...metricFilter, metric]);
+			setAnalyticFilter([...analyticFilter, analytic]);
 		}
 	};
 
@@ -83,17 +83,17 @@ const Home = () => {
 							onClick={filterOnClick}
 						/>
 						{/* <Menu options={[...Analytics]} open={filterToggle} /> */}
-						{Metrics.map((metric) => (
+						{Analytics.map((analytic) => (
 							<FilterChip
-								value={metric.toUpperCase()}
-								onClick={() => metricOnClick(metric)}
+								value={analytic.toUpperCase()}
+								onClick={() => analyticOnClick(analytic)}
 							/>
 						))}
 					</div>
-					{metricFilter}
+					{analyticFilter}
 					<CardLayout
 						platformFilter={platformFilter}
-						typeFilters={metricFilter}
+						typeFilters={analyticFilter}
 					/>
 				</div>
 			</div>
