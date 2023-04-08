@@ -49,7 +49,7 @@ const Home = () => {
 	return (
 		<div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<div>
-				<Header title="Socialytico!" variant="global" />
+				<Header title="Socialyze!" variant="global" />
 			</div>
 			<div
 				style={{
