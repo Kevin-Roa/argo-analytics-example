@@ -16,7 +16,7 @@ const LoginPage = (props: LoginPageProps) => {
 						fontFamily: 'Poppins'
 					}}
 				>
-					Analytics!
+					Socialyze!
 				</h1>
 			}
 			bgColor1="#e6f7ff"
