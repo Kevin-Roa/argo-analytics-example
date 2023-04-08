@@ -4,20 +4,20 @@ import { Home as HomeIcon, Add } from '@mui/icons-material';
 export const navItems = [
 	{ label: 'Home', icon: <HomeIcon /> },
 	{
-		label: 'Facebook',
-		icon: PlatformIcon.facebook
+		label: 'Youtube',
+		icon: PlatformIcon.youtube
 	},
 	{
 		label: 'Twitter',
 		icon: PlatformIcon.twitter
 	},
 	{
-		label: 'Instagram',
-		icon: PlatformIcon.instagram
+		label: 'Facebook',
+		icon: PlatformIcon.facebook
 	},
 	{
-		label: 'Youtube',
-		icon: PlatformIcon.youtube
+		label: 'Instagram',
+		icon: PlatformIcon.instagram
 	},
 	{
 		label: 'TikTok',

@@ -4,6 +4,7 @@ import Card from '../card/Card';
 import initialCards from './data';
 import { Platform, Analytic } from '../../types';
 import './CardLayout.css';
+import { Reorder } from 'framer-motion';
 
 export type CardLayoutProps = {
 	platformFilter?: Platform;
@@ -40,13 +41,18 @@ const CardLayout = ({ platformFilter, typeFilters }: CardLayoutProps) => {
 	}, [platformFilter, typeFilters]);
 
 	return (
-		<div className="cardGrid">
+		<Reorder.Group
+			values={filteredCards}
+			onReorder={setFilteredCards}
+			as="div"
+			className="cardGrid"
+		>
 			{filteredCards.map((card) => (
-				<div key={card.id}>
+				<Reorder.Item key={card.id} value={card} as="div" drag>
 					<Card {...card} />
-				</div>
+				</Reorder.Item>
 			))}
-		</div>
+		</Reorder.Group>
 	);
 };
 

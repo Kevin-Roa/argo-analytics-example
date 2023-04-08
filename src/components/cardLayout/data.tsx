@@ -39,7 +39,8 @@ const CardTemplates = [
 	{
 		title: 'Engagement Rate',
 		type: 'engagement',
-		valueType: 'percentage'
+		valueType: 'percentage',
+		metric: 'user engagement'
 	},
 	{
 		title: 'Likes',
@@ -50,7 +51,8 @@ const CardTemplates = [
 	{
 		title: 'Like to Dislike Ratio',
 		type: 'performance',
-		valueType: 'percentage'
+		valueType: 'percentage',
+		metric: 'likes'
 	},
 	{
 		title: 'Comments',
@@ -75,12 +77,19 @@ const CardTemplates = [
 		type: 'growth',
 		valueType: 'percentage',
 		metric: 'growth'
+	},
+	{
+		title: 'New Users',
+		type: 'reach',
+		valueType: 'percentage',
+		metric: 'new users'
 	}
 ] as CardProps[];
 
 const cards = [] as CardProps[];
 for (const tp of CardTemplates) {
 	for (const pf of Platforms) {
+		if (pf === 'all') continue;
 		cards.push(generateCard({ ...tp, platform: pf }));
 	}
 }
