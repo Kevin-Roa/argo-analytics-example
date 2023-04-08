@@ -73,7 +73,8 @@ const CardTemplates = [
 	{
 		title: 'Growth',
 		type: 'growth',
-		valueType: 'percentage'
+		valueType: 'percentage',
+		metric: 'growth'
 	}
 ] as CardProps[];
 

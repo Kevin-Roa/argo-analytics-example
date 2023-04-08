@@ -10,12 +10,12 @@ import {
 } from '@utd-argo/ux-master-library';
 import CardLayout from '../../components/cardLayout/CardLayout';
 import { navItems } from './data';
-import { Platform, Analytic, Analytics, Metrics } from '../../types';
+import { Platform, Metrics, Metric } from '../../types';
 import { FilterList } from '@mui/icons-material';
 
 const Home = () => {
 	const [platformFilter, setPlatformFilter] = useState<Platform>('all');
-	const [analyticFilter, setAnalyticFilter] = useState<Analytic[]>([]);
+	const [metricFilter, setMetricFilter] = useState<Metric[]>([]);
 	const [filterToggle, setFilterToggle] = useState(false);
 
 	const navOnClick = (idx: number) => {
@@ -25,6 +25,15 @@ const Home = () => {
 
 	const filterOnClick = () => {
 		setFilterToggle(!filterToggle);
+	};
+
+	const metricOnClick = (metric: Metric) => {
+		if (metricFilter.includes(metric)) {
+			const newMetricFilter = metricFilter.filter((m) => m !== metric);
+			setMetricFilter(newMetricFilter);
+		} else {
+			setMetricFilter([...metricFilter, metric]);
+		}
 	};
 
 	// Need to update tab component to have onClick prop
@@ -75,10 +84,17 @@ const Home = () => {
 						/>
 						{/* <Menu options={[...Analytics]} open={filterToggle} /> */}
 						{Metrics.map((metric) => (
-							<FilterChip value={metric.toUpperCase()} />
+							<FilterChip
+								value={metric.toUpperCase()}
+								onClick={() => metricOnClick(metric)}
+							/>
 						))}
 					</div>
-					<CardLayout platformFilter={platformFilter} />
+					{metricFilter}
+					<CardLayout
+						platformFilter={platformFilter}
+						typeFilters={metricFilter}
+					/>
 				</div>
 			</div>
 		</div>

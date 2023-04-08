@@ -41,7 +41,6 @@ export const Analytics = [
 export type Analytic = typeof Analytics[number];
 
 export const Metrics = [
-	'engagement',
 	'views',
 	'growth',
 	'minutes',
