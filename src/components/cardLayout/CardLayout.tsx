@@ -1,6 +1,6 @@
 // import { IJsonModel, Layout, Model, TabNode } from 'flexlayout-react';
 import { useState, useEffect } from 'react';
-import Card from '../card/Card';
+import Card from '../card/card';
 import initialCards from './data';
 import { Platform, Analytic } from '../../types';
 import './CardLayout.css';
