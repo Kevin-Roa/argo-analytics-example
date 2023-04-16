@@ -1,7 +1,7 @@
 import { LoginPage as Login } from '@utd-argo/ux-master-library';
 
 export type LoginPageProps = {
-	onLogin: () => void;
+	children: React.ReactNode;
 };
 
 const LoginPage = (props: LoginPageProps) => {
@@ -21,8 +21,9 @@ const LoginPage = (props: LoginPageProps) => {
 			}
 			bgColor1="#e6f7ff"
 			bgColor2="#91d5ff"
-			onLogin={props.onLogin}
-		/>
+		>
+			{props.children}
+		</Login>
 	);
 };
 
